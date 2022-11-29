@@ -2,6 +2,10 @@ package main
 
 import (
 	"embed"
+	"log"
+	"order/api"
+	"order/api/pkg/logging"
+	"order/api/service"
 
 	"github.com/wailsapp/wails/v2"
 	"github.com/wailsapp/wails/v2/pkg/options"
@@ -11,11 +15,13 @@ import (
 //go:embed all:frontend/dist
 var assets embed.FS
 
-func main() {
-	// Create an instance of the app structure
-	app := NewApp()
+func init() {
+	log.SetOutput(logging.FilePtr("system.log"))
+}
 
-	// Create application with options
+func main() {
+	app := api.NewApp()
+
 	err := wails.Run(&options.App{
 		Title:  "进销存管理系统",
 		Width:  1024,
@@ -24,9 +30,9 @@ func main() {
 			Assets: assets,
 		},
 		BackgroundColour: &options.RGBA{R: 27, G: 38, B: 54, A: 1},
-		OnStartup:        app.startup,
+		OnStartup:        app.Startup,
 		Bind: []interface{}{
-			app,
+			app, service.NewService(),
 		},
 	})
 

@@ -1,0 +1,44 @@
+2022/11/29 18:18:08 dnDsn: root:123456@tcp(localhost:3306)/faka?multiStatements=true&parseTime=true
+2022/11/29 18:15:26 {0 }
+
+
+2022/11/29 18:14:49 D:/goApp/src/orderVue/api/app.go:40
+[7.367ms] [rows:0] SELECT * FROM `user_group`
+
+2022/11/29 18:14:49 D:/goApp/src/orderVue/api/app.go:40 Error 1064: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '`' at line 1
+[4.208ms] [rows:-] SELECT * FROM `
+
+2022/11/29 18:15:26 D:/goApp/src/orderVue/api/app.go:40
+[12.136ms] [rows:0] SELECT * FROM user_group
+
+2022/11/29 18:15:26 D:/goApp/src/orderVue/api/app.go:40 Error 1064: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '`' at line 1
+[5.906ms] [rows:-] SELECT * FROM `
+2022/11/29 18:23:12 dnDsn: root:123456@tcp(localhost:3306)/faka?multiStatements=true&parseTime=true
+2022/11/29 18:25:45 dnDsn: root:123456@tcp(localhost:3306)/faka?multiStatements=true&parseTime=true
+2022/11/29 18:26:02 dnDsn: root:123456@tcp(localhost:3306)/faka?multiStatements=true&parseTime=true
+2022/11/29 18:26:08 js调用过来了- 参数： 212121 111111111111
+2022/11/29 18:27:32 dnDsn: root:123456@tcp(localhost:3306)/faka?multiStatements=true&parseTime=true
+2022/11/29 18:27:46 js调用过来了- 参数： 1111111111 12222222222222
+2022/11/29 18:27:51 dnDsn: root:123456@tcp(localhost:3306)/faka?multiStatements=true&parseTime=true
+2022/11/29 18:36:15 js调用过来了- 参数： 2121 2121 21212
+2022/11/29 18:36:24 js调用过来了- 参数： 2121 2121 21212
+2022/11/29 18:55:30 js调用过来了- 参数： 123 123 123
+2022/11/29 18:55:31 js调用过来了- 参数： 123 123 123
+2022/11/29 18:55:32 js调用过来了- 参数： 123 123 123
+2022/11/29 18:55:32 js调用过来了- 参数： 123 123 123
+2022/11/29 18:55:32 js调用过来了- 参数： 123 123 123
+2022/11/29 18:55:33 js调用过来了- 参数： 123 123 123
+2022/11/29 18:55:33 js调用过来了- 参数： 123 123 123
+2022/11/29 18:55:33 js调用过来了- 参数： 123 123 123
+2022/11/29 18:55:33 js调用过来了- 参数： 123 123 123
+2022/11/29 18:56:14 js调用过来了- 参数： 212 2121 2121
+2022/11/29 18:56:16 js调用过来了- 参数： 212 2121 2121
+2022/11/29 18:56:16 js调用过来了- 参数： 212 2121 2121
+2022/11/29 18:56:16 js调用过来了- 参数： 212 2121 2121
+2022/11/29 18:56:16 js调用过来了- 参数： 212 2121 2121
+2022/11/29 18:56:16 js调用过来了- 参数： 212 2121 2121
+2022/11/29 18:56:16 js调用过来了- 参数： 212 2121 2121
+2022/11/29 18:56:17 js调用过来了- 参数： 212 2121 2121
+2022/11/29 18:56:17 js调用过来了- 参数： 212 2121 2121
+2022/11/29 18:56:17 js调用过来了- 参数： 212 2121 2121
+2022/11/29 18:58:47 js调用过来了- 参数： wqwq wqwq qwqwq

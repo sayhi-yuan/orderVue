@@ -1,10 +1,16 @@
 <script lang="ts">
 import { defineComponent, reactive } from 'vue';
+import { message } from 'ant-design-vue';
+
+import { Login } from '../../wailsjs/go/service/Service.js';
 
 interface FormState {
   username: string;
   password: string;
+  database: string;
   remember: boolean;
+
+  resultText: any;
 }
 
 export default defineComponent({
@@ -12,10 +18,18 @@ export default defineComponent({
     const formState = reactive<FormState>({
       username: '',
       password: '',
+      database: '',
       remember: true,
+      resultText: '',
     });
     const onFinish = (values: any) => {
-      console.log('Success:', values);
+      Login(formState.username,formState.password,formState.database).then(result => {
+        if (result.code != 200){
+          message.error(result.message);
+          return
+        }
+        formState.resultText = result
+      })
     };
 
     const onFinishFailed = (errorInfo: any) => {
@@ -31,6 +45,9 @@ export default defineComponent({
 </script>
 
 <template>
+
+  <div id="result" class="result">{{ formState.resultText }}</div>
+
   <a-form class="login"
       :model="formState"
       name="basic"
@@ -53,6 +70,13 @@ export default defineComponent({
       <a-input-password v-model:value="formState.password" />
     </a-form-item>
 
+    <a-form-item
+        label="Database"
+        name="database"
+        :rules="[{ required: true, message: 'Please input your database!' }]">
+      <a-input-password v-model:value="formState.database" />
+    </a-form-item>
+
     <a-form-item name="remember" :wrapper-col="{ offset: 8, span: 16 }">
       <a-checkbox v-model:checked="formState.remember">Remember me</a-checkbox>
     </a-form-item>
@@ -65,6 +89,6 @@ export default defineComponent({
 
 <style scoped>
  .login{
-   
+
  }
 </style>
