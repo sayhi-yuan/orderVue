@@ -26,6 +26,7 @@ export default defineComponent({
       Login(formState.username,formState.password,formState.database).then(result => {
         if (result.code != 200){
           message.error(result.message);
+          formState.resultText = result
           return
         }
         formState.resultText = result
@@ -74,11 +75,11 @@ export default defineComponent({
         label="Database"
         name="database"
         :rules="[{ required: true, message: 'Please input your database!' }]">
-      <a-input-password v-model:value="formState.database" />
+      <a-input v-model:value="formState.database" />
     </a-form-item>
 
     <a-form-item name="remember" :wrapper-col="{ offset: 8, span: 16 }">
-      <a-checkbox v-model:checked="formState.remember">Remember me</a-checkbox>
+      <a-checkbox v-model:checked="formState.remember">记住</a-checkbox>
     </a-form-item>
 
     <a-form-item :wrapper-col="{ offset: 8, span: 16 }">

@@ -2,6 +2,7 @@ package resp
 
 import (
 	"net/http"
+	"order/api/pkg/errorx"
 )
 
 // Response 响应结构体
@@ -20,7 +21,7 @@ type List struct {
 }
 
 // Success 返回格式
-func Success(obj interface{}) Response {
+func Success(obj any) Response {
 	return Response{
 		Code:    http.StatusOK,
 		Message: "success",
@@ -40,9 +41,18 @@ func SuccessList(total int64, page, size int, list any) Response {
 
 // Notice 返回格式
 func Notice(code int, msg string) Response {
-	data := Response{
+	response := Response{
 		Code:    code,
 		Message: msg,
 	}
-	return data
+	return response
+}
+
+func Error(err *errorx.Error) Response {
+	response := Response{
+		Code:    err.Code,
+		Message: err.String(),
+	}
+
+	return response
 }

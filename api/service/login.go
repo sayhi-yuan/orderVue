@@ -1,14 +1,14 @@
 package service
 
 import (
-	"log"
+	"order/api/errs"
+	"order/api/model"
 	"order/api/pkg/gormx"
+	"order/api/pkg/helper"
 	"order/api/pkg/resp"
 )
 
-func (s *Service) Login(name, pass, database string) any {
-	log.Println("js调用过来了- 参数：", name, pass, database)
-
+func (s *Service) Login(name, pass, database string) resp.Response {
 	err := gormx.Connect(gormx.Config{
 		Database:           database,
 		MaxIdleConnections: 10,
@@ -16,8 +16,31 @@ func (s *Service) Login(name, pass, database string) any {
 		MaxLifeTime:        10,
 	})
 	if err != nil {
-		return resp.Notice(101, "连接数据库异常")
+		return resp.Error(errs.MysqlError)
 	}
 
-	return resp.Success(map[string]interface{}{"id": 1, "name": "123"})
+	var user model.SysUserModel
+	if err = gormx.Db.Where("user_name", name).Find(&user).Error; err != nil {
+		return resp.Error(errs.GetError)
+	}
+
+	if user.ID == 0 {
+		return resp.Error(errs.NotExistError)
+	}
+
+	if user.UserPassword != helper.Md5V(pass) {
+		return resp.Error(errs.UserPassError)
+	}
+
+	result := struct {
+		Id       int    `json:"id"`
+		User     string `json:"user"`
+		UserName string `json:"user_name"`
+	}{
+		Id:       user.ID,
+		User:     user.Name,
+		UserName: user.UserName,
+	}
+
+	return resp.Success(result)
 }
