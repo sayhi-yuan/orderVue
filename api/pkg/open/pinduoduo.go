@@ -1,7 +1,10 @@
 package open
 
 import (
+	"fmt"
+	"order/api/pkg/helper"
 	"sort"
+	"strings"
 	"time"
 )
 
@@ -19,14 +22,14 @@ func NewPinDuoDuo(appKey, AppSecret, accessToken string) *PinDuoDuo {
 	}
 }
 
-func (p *PinDuoDuo) genSign(url string, params map[string]interface{}) {
+func (p *PinDuoDuo) GenSignData(url string, params map[string]interface{}) map[string]interface{} {
 	commonParams := make(map[string]interface{})
 	commonParams["app_key"] = p.AppKey
 	commonParams["access_token"] = p.AccessToken
 	commonParams["type"] = url
 	commonParams["timestamp"] = time.Now().Unix()
 
-	newParams := mergeMap(commonParams, params)
+	newParams := helper.MergeMap(commonParams, params)
 
 	var keys []string
 	for k := range newParams {
@@ -34,23 +37,13 @@ func (p *PinDuoDuo) genSign(url string, params map[string]interface{}) {
 	}
 	sort.Strings(keys)
 
-}
-
-func mergeMap[T int | string](params1, params2 map[T]interface{}) map[T]interface{} {
-	newParams := make(map[T]interface{})
-	for i, v := range params1 {
-		for j, w := range params2 {
-			if i == j {
-				newParams[i] = w
-			} else {
-				if _, ok := newParams[i]; !ok {
-					newParams[i] = v
-				}
-				if _, ok := newParams[j]; !ok {
-					newParams[j] = w
-				}
-			}
-		}
+	var dataStr string
+	for _, k := range keys {
+		dataStr = fmt.Sprintf("%s%s%v", dataStr, k, newParams[k])
 	}
+	dataStr = fmt.Sprintf("%s%v%s", p.AppSecret, dataStr, p.AppSecret)
+
+	newParams["sign"] = strings.ToUpper(helper.Md5V(dataStr))
+
 	return newParams
 }
