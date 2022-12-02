@@ -3,6 +3,7 @@ module order
 go 1.18
 
 require (
+	github.com/guonaihong/gout v0.3.1
 	github.com/pkg/errors v0.9.1
 	github.com/wailsapp/wails/v2 v2.2.0
 	gorm.io/driver/mysql v1.4.4
@@ -17,7 +18,6 @@ require (
 	github.com/go-playground/validator/v10 v10.4.1 // indirect
 	github.com/go-sql-driver/mysql v1.6.0 // indirect
 	github.com/google/uuid v1.1.2 // indirect
-	github.com/guonaihong/gout v0.3.1 // indirect
 	github.com/imdario/mergo v0.3.12 // indirect
 	github.com/jchv/go-winloader v0.0.0-20210711035445-715c2860da7e // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect

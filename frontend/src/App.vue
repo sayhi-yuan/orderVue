@@ -1,8 +1,9 @@
 <script setup>
-import Login from './components/Login.vue'</script>
+  import MainLayout from './layouts/MainLayout.vue'
+</script>
 
 <template>
-  <Login/>
+  <MainLayout/>
 </template>
 
 <style>
