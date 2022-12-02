@@ -22,8 +22,8 @@ func NewPinDuoDuo(appKey, AppSecret, accessToken string) *PinDuoDuo {
 	}
 }
 
-func (p *PinDuoDuo) GenSignData(url string, params map[string]interface{}) map[string]interface{} {
-	commonParams := make(map[string]interface{})
+func (p *PinDuoDuo) GenSignData(url string, params helper.H) helper.H {
+	commonParams := make(helper.H)
 	commonParams["app_key"] = p.AppKey
 	commonParams["access_token"] = p.AccessToken
 	commonParams["type"] = url
