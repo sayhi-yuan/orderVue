@@ -1,17 +1,16 @@
 <template>
-    <a-table :columns="columns" :data-source="data" :pagination="false" bordered>
-        <template #summary>
-        <a-table-summary-row>
-            <a-table-summary-cell>Total</a-table-summary-cell>
-            <a-table-summary-cell>
-                <a-typography-text>{{ totals.totalBorrow }}</a-typography-text>
-            </a-table-summary-cell>
-            <a-table-summary-cell>
-                <a-typography-text>{{ totals.totalRepayment }}</a-typography-text>
-            </a-table-summary-cell>
-        </a-table-summary-row>
-        </template>
-    </a-table>
+    <a-row>
+        <a-col :span="8">
+            <a-table :columns="columns" :data-source="data" :pagination="false" bordered :style="{lineHeight: '0.3'}">
+                <template #summary></template>
+            </a-table>
+        </a-col>
+        <a-col :span="16">
+            <a-table :columns="columns" :data-source="data" :pagination="false" bordered :style="{lineHeight: '0.3'}">
+                <template #summary></template>
+            </a-table>
+        </a-col>
+    </a-row>
 </template>
 
 <script lang="ts">
@@ -37,12 +36,12 @@ export default defineComponent({
 
         const data = ref([
             {
-                name: 'John Brown',
+                name: 'Brown',
                 borrow: 10,
                 repayment: 33,
             },
             {
-                name: 'John Brown',
+                name: 'Brown',
                 borrow: 10,
                 repayment: 33,
             },

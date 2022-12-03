@@ -1,9 +1,18 @@
 <template>
     <a-button class="editable-add-btn" style="margin-bottom: 8px; float: left;" @click="handleAdd">新增</a-button>
     <MerchantsAdd @switch="switchIsShowAdd" :is-show-add="isShowAdd" />
-
+    
+                                                                   
+    <a-input-search
+      v-model:value="value"
+      placeholder="请输入商家全名或模糊名"
+      enter-button
+      @search="onSearch"
+      :style="{width: '300px', float:'right'}"
+    >
+    </a-input-search>
     <a-table :columns="columns" :data-source="dataSource" bordered :style="{lineHeight: '0.3'}">
-        <template #bodyCell="{ column, text, record }">
+        <template #bodyCell="{ column, text, record }">                     
             <template v-if="['name', 'age', 'address'].includes(column.dataIndex)">
                 <div>
                 <a-input
@@ -16,7 +25,7 @@
                 </template>
                 </div>
             </template>
-            <template v-else-if="column.dataIndex === 'operation'">
+            <template v-else-if="column.dataIndex === 'operation'">                      
                 <div class="editable-row-operations">
                 <span v-if="editableData[record.key]">
                     <a-typography-link @click="save(record.key)">保存</a-typography-link>
@@ -37,7 +46,7 @@
 
 <script lang="ts">
     import { cloneDeep } from 'lodash-es';
-    import { defineComponent, isShallow, reactive, ref } from 'vue';
+    import { defineComponent, reactive, ref } from 'vue';
     import type { UnwrapRef } from 'vue';
 
     import MerchantsAdd from './MerchantsAdd.vue';
@@ -109,6 +118,9 @@
                 isShowAdd.value = !isShowAdd.value
             }
 
+            const value = ref("")
+            const onSearch = () => {}
+
             return {
                 dataSource,
                 columns,
@@ -124,6 +136,10 @@
                 onDelete,
                 handleAdd,
                 switchIsShowAdd,
+
+                // 搜索
+                value,
+                onSearch,
             };
         },
     });
