@@ -1,4 +1,20 @@
 <template>
+    <a-button class="editable-add-btn" style="margin-bottom: 16px; float: left" @click="addOrder">新增订单</a-button>
+    <Add @switch="switchIsShowAdd" :is-show-add="isShowAdd" />
+
+    <a-button type="primary" :style="{float: 'right'}">
+        <template #icon>
+        <DownloadOutlined />
+        </template>
+        导出今日订单
+    </a-button>
+    <a-button type="primary" :style="{marginRight: '25px', float: 'right'}">
+        <template #icon>
+        <DownloadOutlined />
+        </template>
+        导出订单
+    </a-button>
+
     <a-table :columns="columns" :data-source="data" :pagination="false" bordered :style="{lineHeight: '0.3'}">
         <template #summary>
         </template>
@@ -8,8 +24,15 @@
 <script lang="ts">
 import type { TableColumnsType } from 'ant-design-vue';
 import { computed, defineComponent, ref } from 'vue';
+import { DownloadOutlined } from '@ant-design/icons-vue';
+
+import Add from './Add.vue'
 
 export default defineComponent({
+    components: {
+        Add,
+        DownloadOutlined,
+    },
     setup() {
         // 表单头部，和对应数据字段的key
         const columns = ref<TableColumnsType>([
@@ -95,12 +118,28 @@ export default defineComponent({
             return { totalBorrow, totalRepayment };
         });
 
+        const isShowAdd = ref(false)
+
+        const switchIsShowAdd = () => {
+            isShowAdd.value = !isShowAdd.value
+        }
+
+        // 添加商品
+        const addOrder = () => {
+            isShowAdd.value = true;
+        }
+
         return {
             data,
             columns,
             totals,
             fixedColumns,
             fixedData,
+
+            // 新增
+            isShowAdd,
+            switchIsShowAdd,
+            addOrder,
         };
     },
 });
