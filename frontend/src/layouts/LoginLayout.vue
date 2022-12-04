@@ -1,39 +1,59 @@
 <template>
     <div class="login-container">
-        <a-form ref="form" :model="form" class="login-form">
-        <h2 class="title">进销存管理系统登录</h2>
-        <a-form-item>
-            <a-input class="inputBox" placeholder="请输入账号">
-                <template #prefix><UserOutlined style="color: rgba(0, 0, 0, 0.25)" /></template>
-            </a-input>
-        </a-form-item>
-        <a-form-item>
-            <a-input-password class="inputBox" placeholder="请输入密码" >
-                <template #prefix><LockOutlined style="color: rgba(0, 0, 0, 0.25)" /></template>
-            </a-input-password>
-        </a-form-item>
-
-        <a-form-item>
-            <a-button class="submit" type="primary" @click="onLogin">登录</a-button>
-        </a-form-item>
+        <a-form class="login-form">
+            <h2 class="title">进销存管理系统登录</h2>
+            <a-form-item>
+                <a-input class="inputBox" placeholder="请输入数据库" v-model="loginData.database">
+                    <template #prefix><HddOutlined style="color: rgba(0, 0, 0, 0.25)" /></template>
+                </a-input>
+            </a-form-item>
+            <a-form-item>
+                <a-input class="inputBox" placeholder="请输入账号" v-model="loginData.name">
+                    <template #prefix><UserOutlined style="color: rgba(0, 0, 0, 0.25)" /></template>
+                </a-input>
+            </a-form-item>
+            <a-form-item>
+                <a-input-password class="inputBox" placeholder="请输入密码" v-model="loginData.password">
+                    <template #prefix><LockOutlined style="color: rgba(0, 0, 0, 0.25)" /></template>
+                </a-input-password>
+            </a-form-item>
+            <a-form-item>
+                <a-button class="submit" type="primary" @click="onLogin">登录</a-button>
+            </a-form-item>
         </a-form>
     </div>
 </template>
 
-<script setup>
-    import { defineEmits } from 'vue';
-    import { UserOutlined, LockOutlined } from '@ant-design/icons-vue';
+<script setup lang="ts">
+    import { defineEmits, UnwrapRef, reactive } from 'vue';
+    import { UserOutlined, LockOutlined, HddOutlined } from '@ant-design/icons-vue';
+
+    // go
+    import { Login } from '../../wailsjs/go/service/Service.js';
 
     // 定义事件
     const emits = defineEmits([
         'login', // 登录事件
     ]);
 
+    // 登录结构体
+    interface LoginData {
+        name:  string;
+        password: string;
+        database: string;
+    }
+
+    const loginData: UnwrapRef<LoginData> = reactive({
+        name: '',
+        password: '',
+        database: '',
+    })
     // 登录
     const onLogin = () => {
-        emits('login', true)
-        // 存储local storage
-        window.localStorage.setItem('token', '测试')
+        emits('login', false)
+        Login(loginData.name, loginData.password, loginData.database).then((result) => {
+            console.log(result)
+        });
     }
 </script>
 
