@@ -5,3 +5,4 @@ frontend/dist
 *.log
 .DS_Store
 .frontend/.DS_Store
+.vscode
